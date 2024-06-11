@@ -1,8 +1,8 @@
 package router
 
 import (
-	"solution1/handler"
-	"solution1/middleware"
+	"solution1/session-2-latihan-crud-user-gin/handler"
+	"solution1/session-2-latihan-crud-user-gin/middleware"
 
 	"github.com/gin-gonic/gin"
 )

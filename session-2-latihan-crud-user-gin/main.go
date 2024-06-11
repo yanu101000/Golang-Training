@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"solution1/router"
+	"solution1/session-2-latihan-crud-user-gin/router"
 
 	"github.com/gin-gonic/gin"
 )

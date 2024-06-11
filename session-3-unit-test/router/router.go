@@ -1,8 +1,8 @@
 package router
 
 import (
-	"solution1/session-1-introduction-gin/handler"
-	"solution1/session-1-introduction-gin/middleware"
+	"solution1/handler"
+	"solution1/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,10 +10,10 @@ import (
 func SetupRouter(r *gin.Engine) {
 	r.GET("/", handler.RootHandler)
 
+	// Tambahkan middleware AuthMiddleware ke rute yang memerlukan autentikasi
 	privateEndpoint := r.Group("/private")
 	privateEndpoint.Use(middleware.AuthMiddleware())
 	{
 		privateEndpoint.POST("/post", handler.PostHandler)
 	}
-
 }
