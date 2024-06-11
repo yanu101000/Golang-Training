@@ -2,7 +2,7 @@ package handler
 
 import (
 	"net/http"
-	"solution1/entity"
+	"solution1/session-2-latihan-crud-user-gin/entity"
 	"strconv"
 	"time"
 

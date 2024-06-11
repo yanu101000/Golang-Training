@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"solution/session-3-unit-test/middleware"
+	"solution1/session-3-unit-test/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
