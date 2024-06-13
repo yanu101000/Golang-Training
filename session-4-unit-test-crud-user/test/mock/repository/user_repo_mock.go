@@ -1,4 +1,4 @@
-package service_test
+package repository
 
 import (
 	"solution1/session-4-unit-test-crud-user/entity"
