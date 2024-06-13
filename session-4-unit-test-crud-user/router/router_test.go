@@ -2,9 +2,9 @@
 package router_test
 
 import (
-	//"github.com/ibrahimker/golang-praisindo-advanced/session-4-unit-test-crud-user/test/mock/handler"
 	"net/http"
 	"net/http/httptest"
+	"solution1/session-4-unit-test-crud-user/test/mock/handler"
 	"testing"
 
 	"solution1/session-4-unit-test-crud-user/router"
@@ -19,7 +19,7 @@ func TestPublicRoutes(t *testing.T) {
 	// Buat router gin baru
 	r := gin.Default()
 	// Buat mock user handler
-	mockUserHandler := &MockUserHandler{}
+	mockUserHandler := &handler.MockUserHandler{}
 	// Set up router dengan mock handler
 	router.SetupRouter(r, mockUserHandler)
 
@@ -54,7 +54,7 @@ func TestPrivateRoutes(t *testing.T) {
 	// Buat router gin baru
 	r := gin.Default()
 	// Buat mock user handler
-	mockUserHandler := &MockUserHandler{}
+	mockUserHandler := &handler.MockUserHandler{}
 	// Set up router dengan mock handler
 	router.SetupRouter(r, mockUserHandler)
 
@@ -109,7 +109,7 @@ func TestPrivateRoutesUnauthorized(t *testing.T) {
 	// Buat router gin baru
 	r := gin.Default()
 	// Buat mock user handler
-	mockUserHandler := &MockUserHandler{}
+	mockUserHandler := &handler.MockUserHandler{}
 	// Set up router dengan mock handler
 	router.SetupRouter(r, mockUserHandler)
 
