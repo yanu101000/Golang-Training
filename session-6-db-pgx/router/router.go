@@ -2,8 +2,8 @@
 package router
 
 import (
-	"solution1/session-5-validator/handler"
-	"solution1/session-5-validator/middleware"
+	"solution1/session-6-db-pgx/handler"
+	"solution1/session-6-db-pgx/middleware"
 
 	"github.com/gin-gonic/gin"
 )
