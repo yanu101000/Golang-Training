@@ -19,12 +19,12 @@ func main() {
 
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	err := userPb.RegisterUserServiceHandlerFromEndpoint(ctx, mux, "localhost:50051", opts)
+	err := userPb.RegisterUserServiceHandlerFromEndpoint(ctx, mux, "localhost:50052", opts)
 	if err != nil {
 		log.Fatalf("did not connect user service grpc: %v", err)
 	}
 
-	err = walletPb.RegisterWalletServiceHandlerFromEndpoint(ctx, mux, "localhost:50052", opts)
+	err = walletPb.RegisterWalletServiceHandlerFromEndpoint(ctx, mux, "localhost:50051", opts)
 	if err != nil {
 		log.Fatalf("did not connect user wallet grpc: %v", err)
 	}
