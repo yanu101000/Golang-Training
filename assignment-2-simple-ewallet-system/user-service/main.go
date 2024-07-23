@@ -33,11 +33,11 @@ func main() {
 	}
 
 	repo := postgres_gorm.NewUserRepository(db) // Initialize your repository implementation
-	walletService := service.NewUserService(repo)
-	walletHandler := grpcHandler.NewUserHandler(walletService)
+	userService := service.NewUserService(repo)
+	userHandler := grpcHandler.NewUserHandler(userService)
 
 	grpcServer := grpc.NewServer()
-	pb.RegisterUserServiceServer(grpcServer, walletHandler)
+	pb.RegisterUserServiceServer(grpcServer, userHandler)
 
 	// Register reflection service on gRPC server.
 	reflection.Register(grpcServer)

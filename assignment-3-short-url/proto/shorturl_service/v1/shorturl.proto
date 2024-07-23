@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option go_package = "solution1/assignment-3-short-url/proto/shorturl_service/v1;shorturl";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+package proto.user_service.v1;
+
+service UrlService {
+  rpc GetLong(GetLongReq) returns (GetLongRes) {
+    option(google.api.http) = {
+      get: "/v1/longUrl/{short}"
+    };
+  }
+
+  rpc ShortUrl(ShortUrlReq) returns (ShortUrlRes) {
+    option(google.api.http) = {
+      post: "/v1/shorten"
+      body: "*"
+    };
+  }
+
+  rpc Redirect(RedirectReq) returns (RedirectRes) {
+    option(google.api.http) = {
+       get: "/v1/{short_url}"
+    };
+  }
+}
+
+message Url {
+    uint32 id = 1;
+    string short_url = 2;
+    string original_url = 3;
+    google.protobuf.Timestamp created_at = 4;
+}
+
+message GetLongReq {
+    string short = 1;
+}
+
+message GetLongRes {
+    string long_url = 1;
+}
+
+message ShortUrlReq {
+    string url = 1;
+}
+
+message ShortUrlRes {
+    int32 id = 1;
+    string short_url = 2;
+}
+
+message RedirectReq {
+    string short_url = 1;
+}
+
+message RedirectRes {
+    string url = 1;
+}
