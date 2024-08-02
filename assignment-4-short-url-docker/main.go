@@ -8,6 +8,7 @@ import (
 	"context"
 	"log"
 	"net"
+	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -15,6 +16,7 @@ import (
 	"github.com/redis/go-redis/v9"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/protobuf/proto"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -66,7 +68,10 @@ func main() {
 	if err != nil {
 		log.Fatalln("Failed to dial server:", err)
 	}
-	gwmux := runtime.NewServeMux()
+	gwmux := runtime.NewServeMux(
+		runtime.WithForwardResponseOption(responseHeaderMatcher),
+	)
+	// gwmux := runtime.NewServeMux()
 	if err = pb.RegisterUrlServiceHandler(context.Background(), gwmux, conn); err != nil {
 		log.Fatalln("Failed to register gateway:", err)
 	}
@@ -76,4 +81,14 @@ func main() {
 	gwServer.Group("v1/*{grpc_gateway}").Any("", gin.WrapH(gwmux))
 	log.Println("Running grpc gateway server in port :8080")
 	_ = gwServer.Run()
+}
+
+func responseHeaderMatcher(ctx context.Context, w http.ResponseWriter, resp proto.Message) error {
+	headers := w.Header()
+	if location, ok := headers["Grpc-Metadata-Location"]; ok {
+		w.Header().Set("Location", location[0])
+		w.WriteHeader(http.StatusFound)
+	}
+
+	return nil
 }

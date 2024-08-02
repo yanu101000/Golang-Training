@@ -6,6 +6,9 @@ import (
 
 	pb "Docker/proto/shorturl_service/v1"
 	"Docker/service"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 )
 
 type UrlHandler struct {
@@ -41,5 +44,7 @@ func (h *UrlHandler) Redirect(ctx context.Context, req *pb.RedirectReq) (*pb.Red
 		log.Printf("Error redirecting URL: %v", err)
 		return nil, err
 	}
+	header := metadata.Pairs("Location", res.Url)
+	grpc.SendHeader(ctx, header)
 	return res, nil
 }

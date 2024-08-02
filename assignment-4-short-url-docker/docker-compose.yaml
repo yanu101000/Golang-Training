@@ -7,7 +7,6 @@ services:
     depends_on:
       - redis
       - postgres
-    volumes: []
   redis:
     image: redis:5.0.12
     command: redis-server --requirepass redispass
