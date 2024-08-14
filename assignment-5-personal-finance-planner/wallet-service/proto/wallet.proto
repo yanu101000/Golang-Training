@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package wallet;
+
+option go_package = "solution1/assignment-5-personal-finance-planner/wallet-service/proto;wallet";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service WalletService {
+    rpc CreateWallet(CreateWalletRequest) returns (WalletResponse);
+    rpc GetWalletByID(GetWalletByIDRequest) returns (WalletResponse);
+    rpc UpdateWallet(UpdateWalletRequest) returns (WalletResponse);
+    rpc DeleteWallet(DeleteWalletRequest) returns (DeleteWalletResponse);
+    rpc TransferBetweenWallets(TransferBetweenWalletsRequest) returns (TransferBetweenWalletsResponse);
+}
+
+message CreateWalletRequest {
+    int64 user_id = 1;
+    string name = 2;
+    double balance = 3;
+}
+
+message GetWalletByIDRequest {
+    int64 id = 1;
+}
+
+message UpdateWalletRequest {
+    int64 id = 1;
+    int64 user_id = 2;
+    string name = 3;
+    double balance = 4;
+}
+
+message DeleteWalletRequest {
+    int64 id = 1;
+}
+
+message TransferBetweenWalletsRequest {
+    int64 from_wallet_id = 1;
+    int64 to_wallet_id = 2;
+    double amount = 3;
+}
+
+message WalletResponse {
+    int64 id = 1;
+    int64 user_id = 2;
+    string name = 3;
+    double balance = 4;
+}
+
+message DeleteWalletResponse {
+    bool success = 1;
+}
+
+message TransferBetweenWalletsResponse {
+    bool success = 1;
+}
