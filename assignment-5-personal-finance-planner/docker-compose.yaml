@@ -1,0 +1,22 @@
+version: "1"
+services:
+  app:
+    image: ewallet:v1
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+      - postgres
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=praisindo
+    ports:
+      - "5433:5433"
+    command: -p 5433
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
