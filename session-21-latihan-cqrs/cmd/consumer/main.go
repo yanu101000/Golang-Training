@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"solution1/session-21/entity"
+	"solution1/session-21-latihan-cqrs/entity"
 
 	"github.com/IBM/sarama"
 	"github.com/gin-gonic/gin"

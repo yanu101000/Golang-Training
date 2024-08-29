@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	"wallet/wallet-service/entity"
+	"wallet/entity"
 	"wallet/wallet-service/repository"
 )
 

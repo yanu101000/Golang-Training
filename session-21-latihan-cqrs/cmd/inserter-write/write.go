@@ -6,8 +6,8 @@ import (
 	"log"
 	"time"
 
-	"solution1/session-21/cmd/consumer"
-	"solution1/session-21/entity"
+	"solution1/session-21-latihan-cqrs/cmd/consumer"
+	"solution1/session-21-latihan-cqrs/entity"
 
 	"github.com/IBM/sarama"
 	"github.com/gin-gonic/gin"

@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"solution1/session-21/entity" // Replace "your-module-name" with the actual module name
+	"wallet/entity"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"

@@ -2,7 +2,7 @@ package handler
 
 import (
 	"context"
-	"wallet/wallet-service/entity"
+	"wallet/entity"
 	pb "wallet/wallet-service/proto" // Adjust the import path to your proto package
 	"wallet/wallet-service/service"
 )

@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"time"
-	"wallet/wallet-service/entity"
+	"wallet/entity"
 )
 
 type RecordService interface {

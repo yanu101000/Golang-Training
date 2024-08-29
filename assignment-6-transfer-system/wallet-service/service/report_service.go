@@ -2,7 +2,7 @@ package service
 
 import (
 	"time"
-	"wallet/wallet-service/entity"
+	"wallet/entity"
 )
 
 type ReportService interface {

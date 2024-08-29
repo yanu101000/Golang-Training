@@ -2,7 +2,7 @@ package repository
 
 import (
 	"time"
-	"wallet/wallet-service/entity"
+	"wallet/entity"
 
 	"gorm.io/gorm"
 )

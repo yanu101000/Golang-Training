@@ -2,7 +2,7 @@ package service
 
 import (
 	"fmt"
-	"wallet/wallet-service/entity"
+	"wallet/entity"
 )
 
 type TransactionCategoryService interface {

@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"wallet/wallet-service/entity"
+	"wallet/entity"
 
 	"gorm.io/gorm"
 )

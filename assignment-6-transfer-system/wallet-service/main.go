@@ -27,7 +27,7 @@ func main() {
 	dsn := "postgresql://postgres:postgres@localhost:5432/postgres"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
-			TablePrefix:   "assignment_5.", // schema name
+			TablePrefix:   "assignment_6.", // schema name
 			SingularTable: false,
 		}})
 	if err != nil {
