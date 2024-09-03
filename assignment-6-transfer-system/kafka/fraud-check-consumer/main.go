@@ -9,9 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 	"sync"
-	"time"
 
 	"wallet/entity"
 
@@ -92,17 +90,12 @@ func (c *Consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.C
 		toUserID := transaction.ToUserID.ID
 		nominal := transaction.Nominal
 
-		// Save to the database
-		// if err := saveNotificationToDB(c.DB, fromUserID, toUserID, nominal); err != nil {
-		// 	log.Printf("failed to save transaction to database: %v", err)
-		// } else {
-		// 	log.Printf("Transaction from user %s saved to the database", fromUserID)
-		// }
+		nominalFloat := float64(nominal)
 
-		// Log the transaction in the CSV file
-		err = writeTransactionToCSV(writer, fromUserID, toUserID, nominal, time.Now())
-		if err != nil {
-			log.Printf("failed to write transaction to CSV: %v", err)
+		// Check for fraud
+		if isFraudulentTransaction(nominalFloat) {
+			log.Printf("Fraudulent transaction detected: FromUserID=%s, ToUserID=%s, Amount=%f", fromUserID, toUserID, nominal)
+			continue // Skip processing this message
 		}
 
 		log.Printf("Consuming transaction and adding it to storage: %v", transaction)
@@ -112,26 +105,10 @@ func (c *Consumer) ConsumeClaim(sess sarama.ConsumerGroupSession, claim sarama.C
 	return nil
 }
 
-// func saveNotificationToDB(db *gorm.DB, fromUserID int, toUserID int, nominal int) error {
-// 	query := `INSERT INTO kafka_practice.transactions (fromUserID, toUserID, nominal, timestamp) VALUES (?, ?, ?, ?)`
-// 	return db.Exec(query, fromUserID, toUserID, nominal, time.Now()).Error
-// }
-
-func writeTransactionToCSV(writer *csv.Writer, fromUserID int, toUserID int, nominal int, timestamp time.Time) error {
-	// Convert data to strings and prepare the record for CSV writing
-	record := []string{
-		strconv.Itoa(fromUserID),
-		strconv.Itoa(toUserID),
-		strconv.Itoa(nominal),
-		timestamp.Format(time.RFC3339), // Convert timestamp to string format
-	}
-
-	// Write the record to the CSV file
-	if err := writer.Write(record); err != nil {
-		return fmt.Errorf("failed to write record to CSV: %w", err)
-	}
-
-	return nil
+func isFraudulentTransaction(nominal float64) bool {
+	// Simple fraud check: if the amount is greater than 1 million, it's considered fraud
+	const fraudThreshold = 1000000.0
+	return nominal > fraudThreshold
 }
 
 func HandleNotifications(ctx *gin.Context, store *NotificationStore) {
